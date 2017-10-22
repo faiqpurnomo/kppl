@@ -11,12 +11,12 @@ class User extends CI_Controller {
 		//$this = get_instance();
 	}
 
-	/*function session() {
+	function session() {
 		if ($this->session->userdata('status') != 'siap') {
 			//var_dump($this->session->userdata('status'));die();
 			redirect('display');
 		}
-	}*/
+	}
 
 
 	function login() {
@@ -32,40 +32,21 @@ class User extends CI_Controller {
 		$password = $this->input->post('pass');
 		$isLogin = $this->User_Model->login_authen($email, $password);
 		$read = $this->User_Model->getData($email);
-		foreach ($read as $r) {
-			$nama = $r['nama'];
-		}
+		$nama = $read['nama'];
 
-		$i = $this->User_Model->authen_user($email);
-
-		if ($isLogin == true /*&& $i[0]['authentication'] < 5*/) {
-			$this->session->set_userdata('email', $email);
-			$this->session->set_userdata('nama', $nama);
-			$this->session->set_userdata('status', 'siap');
-			$this->load->view('user/dashboard1');
-		/*} else {
-			if ($i[0]['authentication'] < 5) {
-				$update = $this->User_Model->wrong_password($email, $i[0]['authentication']+1);
-				$data['err_message'] = "" . ($i[0]['authentication']+1);
-				$this->load->view('user/login', $data);
-			} else {
-				$data['err_message'] = "AKUN ANDA TERBLOCK";
-				$this->load->view('user/login', $data);
-				$this->session->sess_destroy();
-			}*/
+			if ($isLogin == true) {
+				$this->session->set_userdata('email', $email);
+				$this->session->set_userdata('nama', $nama);
+				$this->session->set_userdata('status', 'siap');
+				$this->load->view('user/dashboard1');
+			}
+			else
+			{
+				$this->load->view('user/gagallogin');
+			}
 		}
-		/*else
-		{
-			$this->load->view('user/gagallogin');
-		}*/
 	}
-	}
-/*
-	function logout(){
-		$this->session->sess_destroy();
-		$this->load->view('index');
-	}
-*/
+
 	function register() {
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('nohandphone', 'No Handphone', 'required');
@@ -76,7 +57,6 @@ class User extends CI_Controller {
 		if($this->form_validation->run() == false){
 			redirect('Display/register');
 		}
-
 		else{
 		$pass = $this->input->post('password');
 		$pass2 = $this->input->post('password2');
@@ -95,36 +75,39 @@ class User extends CI_Controller {
 		
 		$this->User_Model->addUserdata($data);
 		$this->load->view('user/registersuccess');
-			}
-		}
+		}}
 	}
 
 
 	function readData() {
-		//$this->session();
+		$this->session();
 		$data = $this->User_Model->getHistory();
 		$this->load->view('user/history', array('data' => $data));
 	}
 
 	function showDashboard1(){
+		$this->session();
 		$this->load->view('user/dashboard1');
 		$data['err_message'] = "";
 	}
 
 	function showPrint(){
+		$this->session();
 		$this->load->view('user/print');
 		$data['err_message'] = "";
 		
 	}
 
 	function showHistory(){
+		$this->session();
 		$this->load->view('user/history', array('data' => $data));
 		$data['err_message'] = "";
 	}
 
 	function logout(){
 		$this->session->sess_destroy();
-		redirect();}
+		redirect();
+	}
 
 	/*public function print(){
 		$is_submit = $this->input->post('is_submit');
@@ -159,9 +142,9 @@ class User extends CI_Controller {
 					'status'=> 'Proses'
 			 	);
 				
-				$this->sendMail();
 				$this->User_Model->addOrder($data);
-			 	redirect('user/showDashboard1');
+			 	//redirect('user/showDashboard1');
+			 	$this->load->view('user/showDashboard1');
 			}
 		} else {
 		 	$this->load->view('user/print');

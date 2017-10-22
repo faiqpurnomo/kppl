@@ -8,11 +8,11 @@ class Admin extends CI_Controller {
 		$this->load->library('form_validation');
 	}
 
-	/*function session() {
+	function session() {
 		if ($this->session->userdata('status') != 'siap') {
 			redirect('display');
 		}
-	}*/
+	}
 
 	function login() {
 		$this->form_validation->set_rules('username', 'username', 'required');
@@ -24,6 +24,7 @@ class Admin extends CI_Controller {
 		}
 		else
 		{
+
 		$username = $this->input->post('username');
 		$pass = $this->input->post('pass');
 		$isLogin = $this->Admin_model->login_authenAdmin($username, $pass);
@@ -36,13 +37,26 @@ class Admin extends CI_Controller {
 			$this->session->set_userdata('username', $username);
 			$this->session->set_userdata('status', 'siap');
 			$this->load->view('admin/dashboardadmin');
+		/*} else {
+			if ($i[0]['authentication'] < 3) {
+				$update = $this->Admin_model->wrong_passwordAdmin($username, $i[0]['authentication']+1);
+				$data['err_message'] = "" . ($i[0]['authentication']+1);
+				$this->load->view('display/loginadmin', $data);
+			} else {
+				$data['err_message'] = "AKUN ANDA TERBLOCK";
+				$this->load->view('display/loginadmin', $data);
+				$this->session->sess_destroy();
+			}*/
 		}
 		else {
-			$this->load->view('admin/loginadmin');
+			$error = 'error_message';
+			$this->load->view('admin/loginadmin', $error);
 		}
+		$this->session();
 	}
 
 	function addAdmin() {
+		$this->session();
 		$pass = $this->input->post('password');
 		$pass2 = $this->input->post('password2');
 
@@ -63,15 +77,17 @@ class Admin extends CI_Controller {
 
 	function logout(){
 		$this->session->sess_destroy();
-		redirect();}
+		redirect();
+	}
 
 	function readData() {
-		//$this->session();
+		$this->session();
 		$data = $this->Admin_model->getData();
 		$this->load->view('admin/datauser', array('data' => $data));
 	}
 
 	function readData2() {
+		$this->session();
 		$data = $this->Admin_model->getDataAdmin2();
 		$this->load->view('admin/dataadmin', array('data' => $data));
 	}
@@ -88,62 +104,73 @@ class Admin extends CI_Controller {
 	}
 */
 	function hapus($delete){
+		$this->session();
 		$this->Admin_model->hapus($delete);
 		$this->dataHistory();
 	}
 
 	function hapusAdmin($delete){
+		$this->session();
 		$this->Admin_model->hapusAdmin($delete);
 		$this->readData2();
 	}
 
-	/*function delete_item($item){
+	function delete_item($item){
+		$this->session();
 		$this->db->where_in('email', $item);
 		$this->db->delete('userdata');
 	}
 
 	function delete_admin($item){
+		$this->session();
 		$this->db->where_in('username', $item);
 		$this->db->delete('admin');
 	}
-	*/
+
 	function dataHistory() {
+		$this->session();
 		$data = $this->Admin_model->getDataHistory();
 		$this->load->view('admin/historyadmin', array('data' => $data));
 	}
 
 	function dataAdmin() {
-		//$this->session();
+		$this->session();
 		$data = $this->Admin_model->getDataAdmin2();
 		$this->load->view('admin/dataadmin', array('data' => $data));
 	}
 
 	function dashboardadmin(){
+		$this->session();
 		$this->load->view('admin/dashboardadmin');
 		$data['err_message'] = "";
 	}
 
 	function datauser(){
+		$this->session();
 		$this->load->view('admin/datauser');
 		$data['err_message'] = "";
 	}
 
 	function showUpdateorder(){
+		$this->session();
 		$this->load->view('admin/updateorder');
 		$data['err_message'] = "";
 	}
 
 	function historyadmin(){
+		$this->session();
 		$this->load->view('admin/historyadmin', array('data'=>$data));
 		$data['err_message']="";
 	}
 
 	function tambahAdmin(){
+		$this->session();
 		$this->load->view('admin/addadmin');
 		$data['err_message'] = "";
 	}
 
 	function update($baru) {
+		$this->session();
 		$data = $this->Admin_model->getItem($baru);
 		$item = array (
 			'id' => $data[0]['id'],
@@ -158,6 +185,7 @@ class Admin extends CI_Controller {
 	}
 
 	function updateOrder() {
+		$this->session();
 		$status = $this->input->post('status');		
 		$id = $this->input->post('id');
 		$data = $this->Admin_model->getItem($id);
@@ -171,6 +199,7 @@ class Admin extends CI_Controller {
 	}
 
 	function userupdate() {
+		$this->session();
 		$authentication = $this->input->post('authentication');		
 		$email = $this->input->post('email');
 		$data = $this->Admin_model->getUser($email);
@@ -184,6 +213,7 @@ class Admin extends CI_Controller {
 	}
 
 	function updateDataUser($baru) {
+		$this->session();
 		$data = $this->Admin_model->getUser($baru);
 		$item = array (
 			'nama' => $data[0]['nama'],

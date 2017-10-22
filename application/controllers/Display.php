@@ -5,6 +5,13 @@ class Display extends CI_Controller {
 		$this->load->library('email');
 	}
 
+	function session() {
+		if ($this->session->userdata('status') != 'siap') {
+			//var_dump($this->session->userdata('status'));die();
+			redirect('display');
+		}
+	}
+
 	function index() {
 		$this->load->view('index');
 		
@@ -20,45 +27,9 @@ class Display extends CI_Controller {
 		$this->load->view('user/register');
 		$data['err_message'] = "";
 	}
-	
-/*	
 
-	function dashboard1(){
-		$this->load->view('user/dashboard1');
-		$data['err_message'] = "";
-	}
-
-	function print(){
-		$this->load->view('user/print');
-		$data['err_message'] = "";
-	}
-
-	function history(){
-		$this->load->view('user/history', array('data' => $data));
-		$data['err_message'] = "";
-	}
-
-	function datauser(){
-		$this->load->view('admin/datauser');
-		$data['err_message'] = "";
-	}
-
-	function historyadmin(){
-		$this->load->view('admin/historyadmin', array('data'=>$data));
-		$data['err_message']="";
-	}
-
-	function logout(){
-		$this->session->sess_destroy();
-		redirect();
-	}
-
-	function dashboardadmin(){
-		$this->load->view('admin/dashboardadmin');
-		$data['err_message'] = "";
-	}
-*/
 	function loginadmin(){
+		$this->session();
 		$this->load->view('admin/loginadmin');
 		$data['err_message'] = "";
 	}
