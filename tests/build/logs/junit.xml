@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CodeIgniter Application Test Suite" tests="40" assertions="32" failures="3" errors="0" time="1.034589">
+    <testsuite name="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" fullPackage="Admin" tests="23" assertions="15" failures="3" errors="0" time="0.738511">
+      <testcase name="test_submit_masuk" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="25" assertions="0" time="0.042191"/>
+      <testcase name="test_submit_masuk_kosong" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="35" assertions="0" time="0.027501"/>
+      <testcase name="test_submit_masuk_sala" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="46" assertions="0" time="0.037758"/>
+      <testcase name="test_viewdashboardadmin" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="56" assertions="1" time="0.025715"/>
+      <testcase name="test_viewdatauser" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="63" assertions="1" time="0.031944"/>
+      <testcase name="test_viewupdateorder" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="69" assertions="1" time="0.045947"/>
+      <testcase name="test_viewhistoryadmin" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="75" assertions="1" time="0.031768"/>
+      <testcase name="test_viewtambahadmin" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="81" assertions="1" time="0.030786"/>
+      <testcase name="test_viewdataadmin" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="87" assertions="1" time="0.036519"/>
+      <testcase name="test_viewdatahistory" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="93" assertions="1" time="0.033218"/>
+      <testcase name="test_viewreaddata" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="98" assertions="1" time="0.034491"/>
+      <testcase name="test_viewreaddata2" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="104" assertions="1" time="0.029421"/>
+      <testcase name="test_submit_masuk_salah" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="110" assertions="1" time="0.035379"/>
+      <testcase name="test_updateDataUser" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="121" assertions="0" time="0.029154"/>
+      <testcase name="test_updateTransaksi" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="129" assertions="0" time="0.032024"/>
+      <testcase name="test_updateOrder" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="134" assertions="0" time="0.034001"/>
+      <testcase name="test_userupdate" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="138" assertions="0" time="0.029836"/>
+      <testcase name="test_hapusData" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="142" assertions="0" time="0.027000"/>
+      <testcase name="test_hapusAdmin" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="147" assertions="0" time="0.027531"/>
+      <testcase name="test_logout" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="187" assertions="3" time="0.023372"/>
+      <testcase name="test_Delete_produk" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="194" assertions="1" time="0.037234">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">Admin_test::test_Delete_produk
+Failed asserting that 11 matches expected 10.
+
+/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php:201
+</failure>
+      </testcase>
+      <testcase name="test_Delete_produk_wrong_id" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="209" assertions="1" time="0.027736">
+        <failure type="PHPUnit_Framework_ExpectationFailedException">Admin_test::test_Delete_produk_wrong_id
+Status code is not 404 but 200.
+Failed asserting that 200 is identical to 404.
+
+/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/_ci_phpunit_test/CIPHPUnitTestCase.php:316
+/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php:212
+</failure>
+      </testcase>
+      <testcase name="test_Delete_produk_no_logged" class="Admin_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php" line="214" assertions="0" time="0.027986">
+        <failure type="PHPUnit_Framework_AssertionFailedError">Admin_test::test_Delete_produk_no_logged
+redirect() is not called.
+
+/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/_ci_phpunit_test/CIPHPUnitTestCase.php:417
+/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Admin_test.php:216
+</failure>
+      </testcase>
+    </testsuite>
+    <testsuite name="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" fullPackage="User" tests="10" assertions="10" failures="0" errors="0" time="0.210532">
+      <testcase name="test_login_berhasil" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="13" assertions="1" time="0.027511"/>
+      <testcase name="test_login_masuk_salah" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="23" assertions="0" time="0.024433"/>
+      <testcase name="test_login_emailkosong" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="31" assertions="1" time="0.020760"/>
+      <testcase name="test_login_passwordkosong" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="41" assertions="1" time="0.024523"/>
+      <testcase name="test_session" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="52" assertions="0" time="0.004585"/>
+      <testcase name="test_viewshowDashboard1" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="58" assertions="1" time="0.021849"/>
+      <testcase name="test_viewshowPrint1" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="64" assertions="1" time="0.023383"/>
+      <testcase name="test_viewshowHistory" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="70" assertions="1" time="0.022166"/>
+      <testcase name="test_viewreaddatalogin" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="75" assertions="1" time="0.022573"/>
+      <testcase name="test_logoutuser" class="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/User_test.php" line="80" assertions="3" time="0.018749"/>
+    </testsuite>
+    <testsuite name="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Welcome_test.php" fullPackage="Welcome" tests="7" assertions="7" failures="0" errors="0" time="0.085546">
+      <testcase name="test_welcome" class="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Welcome_test.php" line="19" assertions="1" time="0.011878"/>
+      <testcase name="test_index" class="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Welcome_test.php" line="24" assertions="1" time="0.016746"/>
+      <testcase name="test_indexlogin" class="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Welcome_test.php" line="37" assertions="1" time="0.013554"/>
+      <testcase name="test_indexregister" class="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Welcome_test.php" line="43" assertions="1" time="0.013470"/>
+      <testcase name="test_indexloginadmin" class="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Welcome_test.php" line="49" assertions="1" time="0.013572"/>
+      <testcase name="test_method_404" class="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Welcome_test.php" line="68" assertions="1" time="0.012871"/>
+      <testcase name="test_APPPATH" class="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/kppl/application/tests/controllers/Welcome_test.php" line="74" assertions="1" time="0.003455"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
