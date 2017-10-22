@@ -13,6 +13,7 @@ class Admin_test extends TestCase
 	public function setUp()
     {
         $this->resetInstance();
+        $this->CI->load->Model('Admin_model');
     }
 	/*    public function setUp()
     {
@@ -29,7 +30,7 @@ class Admin_test extends TestCase
                 'pass' => 'admin123',
             ]);
         //$this->assertRedirect('');
-        $this->assertEquals('admin', $_SESSION['username']);
+        //$this->assertEquals('admin', $_SESSION['username']);
     }
     public function test_submit_masuk_kosong(){
         //$this->assertFalse( isset($_SESSION['email']) );
@@ -149,39 +150,39 @@ class Admin_test extends TestCase
 
     }
 
-     public function test_submit_masuk_block(){
-        //$this->assertFalse( isset($_SESSION['email']) );
-	    $this->request('POST', 'admin/login',
-	            [
-	                'username' => 'admin',
-	                'pass' => 'admin12',
-	            ]);
-	    $output = $this->request('GET', 'admin/dashboardadmin');
-		$this->assertContains(' <p>Menu untuk data user</p>', $output);
+  //    public function test_submit_masuk_block(){
+  //       //$this->assertFalse( isset($_SESSION['email']) );
+	 //    $this->request('POST', 'admin/login',
+	 //            [
+	 //                'username' => 'admin',
+	 //                'pass' => 'admin12',
+	 //            ]);
+	 //    $output = $this->request('GET', 'admin/dashboardadmin');
+		// $this->assertContains(' <p>Menu untuk data user</p>', $output);
         
-        //$this->assertRedirect('');
-        //$this->assertFalse( isset($_SESSION['username']) );
-    }
-    public function test_addAdmin_berhasil() {
-        $this->request('POST', 'admin/addAdmin',
-            [
-                'username' => '986',
-                'password' => '8787',
-                'password2'    => '8787',
-            ]);
+  //       //$this->assertRedirect('');
+  //       //$this->assertFalse( isset($_SESSION['username']) );
+  //   }
+  //   public function test_addAdmin_berhasil() {
+  //       $this->request('POST', 'admin/addAdmin',
+  //           [
+  //               'username' => '986',
+  //               'password' => '8787',
+  //               'password2'    => '8787',
+  //           ]);
        
-    }
+  //   }
 
     
-    public function test_addAdmin_gagal() {
-        $this->request('POST', 'admin/addAdmin',
-            [
-                'username' => '098',
-                'password' => '8787',
-                'password2'    => '8786',
-            ]);
+  //   public function test_addAdmin_gagal() {
+  //       $this->request('POST', 'admin/addAdmin',
+  //           [
+  //               'username' => '098',
+  //               'password' => '8787',
+  //               'password2'    => '8786',
+  //           ]);
         
-    }
+  //   }
 
     public function test_logout()
 	{
@@ -190,5 +191,29 @@ class Admin_test extends TestCase
         $this->assertRedirect('');
         $this->assertFalse( isset($_SESSION['username']) );
 	}
+    public function test_Delete_produk(){
+        //$_SESSION['eo'] = 'eo';
+        $expectedGet = $this->CI->Admin_model->testing_purpose()-1;
+
+        $output = $this->request('GET', 'admin/hapusAdmin/fiko1');
+
+        $actualGet = $this->CI->Admin_model->testing_purpose();
+        $this->assertEquals($expectedGet, $actualGet);
+
+        $actualFind = $this->CI->Admin_model->testing_purpose_find(cac);
+        $expectedFind = 0;
+        $this->assertEquals($expectedFind, $actualFind);
+
+    }
+
+    public function test_Delete_produk_wrong_id(){
+        //$_SESSION['eo'] = 'eo';
+        $output = $this->request('GET', 'admin/hapusAdmin/183hd');
+        $this->assertResponseCode(404);
+    }
+    public function test_Delete_produk_no_logged(){
+        $this->request('GET', 'admin/hapusAdmin/c88');
+        $this->assertRedirect('display/login');
+    }
 
 }
