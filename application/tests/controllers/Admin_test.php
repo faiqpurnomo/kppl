@@ -59,30 +59,26 @@ class Admin_test extends TestCase
         $this->assertFalse( isset($_SESSION['username']) );
     }
 
+    public function test_logout()
+	{
+        $_SESSION['status'] = 'siap';
+        $this->request('GET', 'admin/logout');
+        $this->assertFalse( isset($_SESSION['status']) );
+	}
+    public function test_Delete_produk(){
+        $_SESSION['status'] = 'siap';
+        $expectedGet = $this->CI->Admin_model->testing_purpose()-1;
 
+        $output = $this->request('GET', 'admin/hapusAdmin/fiko1');
 
-//Nanti yang dibawah dipake
- //    public function test_logout()
-	// {
-	// 	$this->assertFalse( isset($_SESSION['username']) );
- //        $this->request('GET', 'admin/logout');
- //        $this->assertRedirect('');
- //        $this->assertFalse( isset($_SESSION['username']) );
-	// }
- //    public function test_Delete_produk(){
- //        //$_SESSION['eo'] = 'eo';
- //        $expectedGet = $this->CI->Admin_model->testing_purpose()-1;
+        $actualGet = $this->CI->Admin_model->testing_purpose();
+        $this->assertEquals($expectedGet, $actualGet);
 
- //        $output = $this->request('GET', 'admin/hapusAdmin/fiko1');
-
- //        $actualGet = $this->CI->Admin_model->testing_purpose();
- //        $this->assertEquals($expectedGet, $actualGet);
-
- //        $actualFind = $this->CI->Admin_model->testing_purpose_find(cac);
- //        $expectedFind = 0;
- //        $this->assertEquals($expectedFind, $actualFind);
-
- //    }
+        $actualFind = $this->CI->Admin_model->testing_purpose_find('fiko1');
+        $expectedFind = 0;
+        $this->assertEquals($expectedFind, $actualFind);
+        $this->CI->Admin_model->testing_reset_purpose_oppose_delete(7);
+    }
 
  //    public function test_Delete_produk_wrong_id(){
  //        //$_SESSION['eo'] = 'eo';

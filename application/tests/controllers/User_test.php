@@ -49,32 +49,6 @@ class User_test extends TestCase
         $this->assertRedirect('Display/login');
     }
 
-	public function test_viewshowDashboard1()
-	{
-        $_SESSION['status'] = 'siap';
-		$output = $this->request('GET', 'user/showDashboard1');
-		$this->assertContains('<h3>Apa yang akan anda lakukan hari ini?</h3>', $output);
-	}
-
-	public function test_viewshowPrint1()
-	{
-        $_SESSION['status'] = 'siap';
-		$output = $this->request('GET', 'user/showPrint');
-		$this->assertContains('<h3>Apa yang ingin anda cetak hari ini ?</h3>', $output);
-	}
-
-	public function test_viewshowHistory()
-	{
-        $_SESSION['status'] = 'siap';
-		$output = $this->request('GET', 'user/showHistory');
-		$this->assertContains('<h2>HISTORI TRANSAKSI</h2>', $output);
-	}
-    public function test_viewreaddatalogin()
-    {
-        $_SESSION['status'] = 'siap';
-        $output = $this->request('GET', 'user/readData');
-        $this->assertContains('<h2>HISTORI TRANSAKSI</h2>', $output);
-    }
     public function test_logoutuser()
     {
         $this->assertFalse( isset($_SESSION['email']) );
