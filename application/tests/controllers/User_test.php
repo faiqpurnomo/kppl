@@ -49,31 +49,29 @@ class User_test extends TestCase
         $this->assertRedirect('Display/login');
     }
 
-	public function test_session()
-    {
-
-        $_SESSION['status'] = "siap";
-        //$this->assertRedirect('http://localhost/printpbw/');
-    }
 	public function test_viewshowDashboard1()
 	{
+        $_SESSION['status'] = 'siap';
 		$output = $this->request('GET', 'user/showDashboard1');
 		$this->assertContains('<h3>Apa yang akan anda lakukan hari ini?</h3>', $output);
 	}
 
 	public function test_viewshowPrint1()
 	{
+        $_SESSION['status'] = 'siap';
 		$output = $this->request('GET', 'user/showPrint');
 		$this->assertContains('<h3>Apa yang ingin anda cetak hari ini ?</h3>', $output);
 	}
 
 	public function test_viewshowHistory()
 	{
+        $_SESSION['status'] = 'siap';
 		$output = $this->request('GET', 'user/showHistory');
 		$this->assertContains('<h2>HISTORI TRANSAKSI</h2>', $output);
 	}
     public function test_viewreaddatalogin()
     {
+        $_SESSION['status'] = 'siap';
         $output = $this->request('GET', 'user/readData');
         $this->assertContains('<h2>HISTORI TRANSAKSI</h2>', $output);
     }
@@ -86,17 +84,17 @@ class User_test extends TestCase
 
     
 	//ganti email karena primary key jika ingin testing
-	public function test_addUser_berhasil() {
-        $this->request('POST', 'user/register',
-            [
-                'email' => 'Fdaar@0.com',
-                'password' => '8787',
-                'password2'    => '8787',
-                'nohandphone' => '082114009415',
-                'nama' => 'Faiq Purnomo',
-            ]);
+	// public function test_addUser_berhasil() {
+ //        $this->request('POST', 'user/register',
+ //            [
+ //                'email' => 'Fdaar@0.com',
+ //                'password' => '8787',
+ //                'password2'    => '8787',
+ //                'nohandphone' => '082114009415',
+ //                'nama' => 'Faiq Purnomo',
+ //            ]);
        
-    }
+ //    }
     public function test_addUser_kosong() {
         $this->request('POST', 'user/register',
             [
