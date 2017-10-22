@@ -99,5 +99,21 @@ class Admin_model extends CI_Model {
 		$this->db->where('email', $baru);
 		$this->db->update('userdata', $data);
 	}
+	public function testing_purpose(){
+			$test = $this->db->get('admin');
+			return $test->num_rows();
+		}
+
+		public function testing_purpose_find($username){
+			$result = $this->db->where('username', $username)
+							   ->get('admin');
+			return $this->db->affected_rows();
+		}
+
+		//Line below for reset database
+		public function testing_reset_purpose_oppose_add_products($id){
+			$this->db->where('id', $id)
+					 ->delete('produk');
+		}
 }
 ?>
