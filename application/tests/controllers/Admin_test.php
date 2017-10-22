@@ -77,17 +77,19 @@ class Admin_test extends TestCase
         $actualFind = $this->CI->Admin_model->testing_purpose_find('fiko1');
         $expectedFind = 0;
         $this->assertEquals($expectedFind, $actualFind);
-        $this->CI->Admin_model->testing_reset_purpose_oppose_delete(7);
+        $this->CI->Admin_model->testing_reset_purpose_oppose_delete('fiko1');
     }
 
- //    public function test_Delete_produk_wrong_id(){
- //        //$_SESSION['eo'] = 'eo';
- //        $output = $this->request('GET', 'admin/hapusAdmin/183hd');
- //        $this->assertResponseCode(404);
- //    }
- //    public function test_Delete_produk_no_logged(){
- //        $this->request('GET', 'admin/hapusAdmin/c88');
- //        $this->assertRedirect('display/login');
- //    }
+    public function test_edit_produk(){
+        $_SESSION['status'] = 'siap';
+        $output = $this->request('POST', 'admin/updateOrder/',
+            [
+                'id' => 32,
+                'status' => 'Proses'
+            ]);
+        $updated = $this->CI->Admin_model->find_testing(32);
+        $actual1 = $updated->status;
 
+        $this->assertEquals('Proses', $actual1);
+    }
 }

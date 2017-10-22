@@ -114,6 +114,15 @@ class Admin_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+	public function find_testing($id){
+			$result = $this->db->where('id', $id)
+							   ->limit(1)
+							   ->get('order_masuk');
+			if($result->num_rows()>0)
+				return $result->row();
+			else return array();
+		}
+
 	//Line below for reset database
 	public function testing_reset_purpose_oppose_add_products($id){
 		$this->db->where('id', $id)
