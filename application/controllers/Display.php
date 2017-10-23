@@ -5,16 +5,8 @@ class Display extends CI_Controller {
 		$this->load->library('email');
 	}
 
-	function session() {
-		if ($this->session->userdata('status') != 'siap') {
-			//var_dump($this->session->userdata('status'));die();
-			redirect('display');
-		}
-	}
-
 	function index() {
 		$this->load->view('index');
-		
 		$data['err_message'] = "";
 	}
 
@@ -29,7 +21,6 @@ class Display extends CI_Controller {
 	}
 
 	function loginadmin(){
-		$this->session();
 		$this->load->view('admin/loginadmin');
 		$data['err_message'] = "";
 	}

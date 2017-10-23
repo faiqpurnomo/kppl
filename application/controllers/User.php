@@ -63,7 +63,7 @@ class User extends CI_Controller {
 
 		if ($pass != $pass2) {
 			$data['err_message'] = "Password tidak cocok!";
-			$this->load->view(user/register);
+			$this->load->view('user/register');
 		} else {
 
 		$data = array(

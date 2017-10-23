@@ -76,6 +76,7 @@ class Admin extends CI_Controller {
 	}
 
 	function logout(){
+		$this->session->unset_userdata('status');
 		$this->session->sess_destroy();
 		redirect();
 	}
