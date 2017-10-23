@@ -68,5 +68,11 @@ class User_Model extends CI_Model {
 			return $test->num_rows();
 		}
 
+	public function find_testing_akun($nama) {
+		$result = $this->db->where('nama', $nama)
+						   ->get('userdata');
+		return $result->row_array();
+	}
+
 }
 ?>

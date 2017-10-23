@@ -64,20 +64,31 @@ class User_test extends TestCase
 
     
 	//ganti email karena primary key jika ingin testing
-	// public function test_addUser_berhasil() {
- //        $expected = $this->CI->User_Model->testing_purpose()+1;
- //        $this->request('POST', 'user/register',
- //            [
- //                'email' => 'derol@haha.com',
- //                'password' => '1234',
- //                'password2'    => '1234',
- //                'nohandphone' => '082116009415',
- //                'nama' => 'Derol waw',
- //            ]);
- //        $actual = $this->CI->User_Model->testing_purpose();
- //        $this->assertEquals($expected, $actual);
-       
- //    }
+	public function test_addUser_berhasil() {
+        $expected = $this->CI->User_Model->testing_purpose()+1;
+        $this->request('POST', 'user/register',
+            [
+                'email' => 'derol@haha.com',
+                'password' => '1234',
+                'password2'    => '1234',
+                'nohandphone' => '082116009415',
+                'nama' => 'Derol waw',
+            ]);
+        $actual = $this->CI->User_Model->testing_purpose();
+        $this->assertEquals($expected, $actual);
+       //cek user
+        $expecteduser = array('nama' => 'Derol waw',
+                                'nohandphone' => '082116009415',
+                                'email' => 'derol@haha.com',
+                                'password' => '1234',
+                                'authentication' => '0');
+        $actualuser = $this->CI->User_Model->find_testing_akun('Derol waw');
+        $this->assertEquals($expecteduser, $actualuser);
+
+        
+
+
+    }
 
     public function test_addUser_kosong() {
         $this->request('POST', 'user/register',
