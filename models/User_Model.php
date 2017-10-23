@@ -61,5 +61,12 @@ class User_Model extends CI_Model {
 		$this->db->update('userdata');
 	}*/
 
+	//buat testing yah
+
+	public function testing_purpose(){
+			$test = $this->db->get('userdata');
+			return $test->num_rows();
+		}
+
 }
 ?>

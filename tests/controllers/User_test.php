@@ -10,6 +10,12 @@
 
 class User_test extends TestCase
 {
+
+    public function setUp() {
+        $this->resetInstance();
+        $this->CI->load->Model('User_Model');
+    }
+
     public function test_login_berhasil(){
         //$this->assertFalse( isset($_SESSION['email']) );
         $this->request('POST', 'user/login',
@@ -49,34 +55,6 @@ class User_test extends TestCase
         $this->assertRedirect('Display/login');
     }
 
-	public function test_session()
-    {
-
-        $_SESSION['status'] = "siap";
-        //$this->assertRedirect('http://localhost/printpbw/');
-    }
-	public function test_viewshowDashboard1()
-	{
-		$output = $this->request('GET', 'user/showDashboard1');
-		$this->assertContains('<h3>Apa yang akan anda lakukan hari ini?</h3>', $output);
-	}
-
-	public function test_viewshowPrint1()
-	{
-		$output = $this->request('GET', 'user/showPrint');
-		$this->assertContains('<h3>Apa yang ingin anda cetak hari ini ?</h3>', $output);
-	}
-
-	public function test_viewshowHistory()
-	{
-		$output = $this->request('GET', 'user/showHistory');
-		$this->assertContains('<h2>HISTORI TRANSAKSI</h2>', $output);
-	}
-    public function test_viewreaddatalogin()
-    {
-        $output = $this->request('GET', 'user/readData');
-        $this->assertContains('<h2>HISTORI TRANSAKSI</h2>', $output);
-    }
     public function test_logoutuser()
     {
         $this->assertFalse( isset($_SESSION['email']) );
@@ -87,39 +65,43 @@ class User_test extends TestCase
     
 	//ganti email karena primary key jika ingin testing
 	// public function test_addUser_berhasil() {
+ //        $expected = $this->CI->User_Model->testing_purpose()+1;
  //        $this->request('POST', 'user/register',
  //            [
- //                'email' => 'Fdaar@0.com',
- //                'password' => '8787',
- //                'password2'    => '8787',
- //                'nohandphone' => '082114009415',
- //                'nama' => 'Faiq Purnomo',
+ //                'email' => 'derol@haha.com',
+ //                'password' => '1234',
+ //                'password2'    => '1234',
+ //                'nohandphone' => '082116009415',
+ //                'nama' => 'Derol waw',
  //            ]);
-       
- //    }
- //    public function test_addUser_kosong() {
- //        $this->request('POST', 'user/register',
- //            [
- //                'email' => '',
- //                'password' => '',
- //                'password2'    => '',
- //                'nohandphone' => '',
- //                'nama' => '',
- //            ]);
- //        $this->assertRedirect('Display/register');
+ //        $actual = $this->CI->User_Model->testing_purpose();
+ //        $this->assertEquals($expected, $actual);
        
  //    }
 
- //    public function test_addUser_gagal() {
- //        $this->request('POST', 'user/register',
- //            [
- //                'email' => '3d3@i.com',
- //                'password' => '8787',
- //                'password2'    => '8786',
- //                'nohandphone' => '082114009415',
- //                'nama' => 'Faiq Purnomo',
- //            ]);
-        
- //    }
+    public function test_addUser_kosong() {
+        $this->request('POST', 'user/register',
+            [
+                'email' => '',
+                'password' => '',
+                'password2'    => '',
+                'nohandphone' => '',
+                'nama' => '',
+            ]);
+        $this->assertRedirect('Display/register');
+       
+    }
+
+    public function test_addUser_gagal() {
+        $output = $this->request('POST', 'user/register',
+            [
+                'email' => '3d3@i.com',
+                'password' => '8787',
+                'password2'    => '8786',
+                'nohandphone' => '082114009415',
+                'nama' => 'Faiq Purnomo',
+            ]);
+        $this->assertContains('<title>Print-in - Register</title>',$output);
+    }
 
 }
