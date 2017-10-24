@@ -100,10 +100,8 @@ class Admin_model extends CI_Model {
 		$this->db->update('userdata', $data);
 	}
 
-
-
 	//Line below for testing purposes
-	public function testing_purpose(){
+	public function testing_purpose1(){
 			$test = $this->db->get('admin');
 			return $test->num_rows();
 		}
@@ -114,7 +112,7 @@ class Admin_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
-	public function find_testing($id){
+	public function find_testing_order($id){
 			$result = $this->db->where('id', $id)
 							   ->limit(1)
 							   ->get('order_masuk');
@@ -122,6 +120,14 @@ class Admin_model extends CI_Model {
 				return $result->row();
 			else return array();
 		}
+
+
+	public function find_testing_akun($username) {
+		$result = $this->db->where('username', $username)
+						   ->get('admin');
+		return $result->row_array();
+	}
+
 
 	//Line below for reset database
 	public function testing_reset_purpose_oppose_add_products($id){

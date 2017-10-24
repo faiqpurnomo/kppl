@@ -42,22 +42,6 @@ class Admin_test extends TestCase
 	        $this->request('POST', 'admin/hapus/25');
         //$this->assertRedirect('');
     }
-    public function test_hapusAdmin(){
-        //$this->assertFalse( isset($_SESSION['email']) );
-	        $this->request('POST', 'admin/hapusAdmin/fiko');
-
-    }
-
-    public function test_submit_masuk_salah(){
-        //$this->assertFalse( isset($_SESSION['email']) );
-          $this->request('POST', 'admin/login',
-              [
-                  'username' => 'admin',
-                  'pass' => 'admin12',
-              ]);
-        //$this->assertRedirect('');
-        $this->assertFalse( isset($_SESSION['username']) );
-    }
 
     public function test_logout()
 	{
@@ -65,13 +49,14 @@ class Admin_test extends TestCase
         $this->request('GET', 'admin/logout');
         $this->assertFalse( isset($_SESSION['status']) );
 	}
-    public function test_Delete_produk(){
+
+    public function test_Delete_admin(){
         $_SESSION['status'] = 'siap';
-        $expectedGet = $this->CI->Admin_model->testing_purpose()-1;
+        $expectedGet = $this->CI->Admin_model->testing_purpose1()-1;
 
         $output = $this->request('GET', 'admin/hapusAdmin/fiko1');
 
-        $actualGet = $this->CI->Admin_model->testing_purpose();
+        $actualGet = $this->CI->Admin_model->testing_purpose1();
         $this->assertEquals($expectedGet, $actualGet);
 
         $actualFind = $this->CI->Admin_model->testing_purpose_find('fiko1');
@@ -80,6 +65,31 @@ class Admin_test extends TestCase
         $this->CI->Admin_model->testing_reset_purpose_oppose_delete('fiko1');
     }
 
+    public function test_addAdmin_berhasil() {
+        $_SESSION['status'] = 'siap';
+        $expected = $this->CI->Admin_model->testing_purpose1()+1;
+        $this->request('POST', 'admin/addAdmin',
+            [
+                'username' => 'fafaiq',
+                'password' => '1234',
+                'password2'    => '1234',
+            ]);
+        $actual = $this->CI->Admin_model->testing_purpose1();
+        $this->assertEquals($expected, $actual);
+
+
+        $expectedAdmin = array('username' => 'fafaiq',
+                                'password' => '1234',
+                                'authentication' => '0');
+        $actualAdmin = $this->CI->Admin_model->find_testing_akun('fafaiq');
+        $this->assertEquals($expecteduser, $actualuser);
+        $this->CI->Admin_model->hapusAdmin('fafaiq');
+        
+
+
+    }
+
+
     public function test_edit_produk(){
         $_SESSION['status'] = 'siap';
         $output = $this->request('POST', 'admin/updateOrder/',
@@ -87,7 +97,7 @@ class Admin_test extends TestCase
                 'id' => 32,
                 'status' => 'Proses'
             ]);
-        $updated = $this->CI->Admin_model->find_testing(32);
+        $updated = $this->CI->Admin_model->find_testing_order(32);
         $actual1 = $updated->status;
 
         $this->assertEquals('Proses', $actual1);
