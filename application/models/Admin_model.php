@@ -84,6 +84,7 @@ class Admin_model extends CI_Model {
 
 	function getItem($data) {
 		return $this->db->select('*')->from('order_masuk')->where('id', $data)->get()->result_array();
+	
 	}
 
 	function getUser($data) {
@@ -106,6 +107,11 @@ class Admin_model extends CI_Model {
 			return $test->num_rows();
 		}
 
+	public function testing_order(){
+			$test = $this->db->get('order_masuk');
+			return $test->num_rows();
+		}
+
 	public function testing_purpose_find($username){
 		$result = $this->db->where('username', $username)
 						   ->get('admin');
@@ -114,11 +120,8 @@ class Admin_model extends CI_Model {
 
 	public function find_testing_order($id){
 			$result = $this->db->where('id', $id)
-							   ->limit(1)
 							   ->get('order_masuk');
-			if($result->num_rows()>0)
-				return $result->row();
-			else return array();
+			return $this->db->affected_rows();
 		}
 
 

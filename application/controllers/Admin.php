@@ -25,28 +25,18 @@ class Admin extends CI_Controller {
 		else
 		{
 
-		$username = $this->input->post('username');
-		$pass = $this->input->post('pass');
+		$username = $this->input->post('username', TRUE);
+		$pass = $this->input->post('pass', TRUE);
 		$isLogin = $this->Admin_model->login_authenAdmin($username, $pass);
 		$read = $this->Admin_model->getDataAdmin($username);
 
 		$i = $this->Admin_model->authen_admin($username);
 		}
 
-		if ($isLogin == true /*&& $i[0]['authentication'] < 3*/) {
+		if ($isLogin == true) {
 			$this->session->set_userdata('username', $username);
 			$this->session->set_userdata('status', 'siap');
 			$this->load->view('admin/dashboardadmin');
-		/*} else {
-			if ($i[0]['authentication'] < 3) {
-				$update = $this->Admin_model->wrong_passwordAdmin($username, $i[0]['authentication']+1);
-				$data['err_message'] = "" . ($i[0]['authentication']+1);
-				$this->load->view('display/loginadmin', $data);
-			} else {
-				$data['err_message'] = "AKUN ANDA TERBLOCK";
-				$this->load->view('display/loginadmin', $data);
-				$this->session->sess_destroy();
-			}*/
 		}
 		else {
 			$error = 'error_message';
@@ -57,17 +47,17 @@ class Admin extends CI_Controller {
 
 	function addAdmin() {
 		$this->session();
-		$pass = $this->input->post('password');
-		$pass2 = $this->input->post('password2');
+		$pass = $this->input->post('password', TRUE);
+		$pass2 = $this->input->post('password2', TRUE);
 
 		if ($pass != $pass2) {
 			$data['err_message'] = "Password tidak cocok!";
-			$this->load->view(user/register);
+			redirect('Admin/tambahAdmin');
 		} else {
 
 		$data = array(
-			'username' => $this->input->post('username'),
-			'pass' => $this->input->post('password')
+			'username' => $this->input->post('username', TRUE),
+			'pass' => $this->input->post('password', TRUE)
 		);
 		
 		$this->Admin_model->addAdmindata($data);
@@ -78,8 +68,7 @@ class Admin extends CI_Controller {
 	function logout(){
 		$this->session->unset_userdata('status');
 		$this->session->sess_destroy();
-		redirect();
-	}
+		redirect(); }
 
 	function readData() {
 		$this->session();
@@ -122,11 +111,11 @@ class Admin extends CI_Controller {
 		$this->db->delete('userdata');
 	}
 
-	function delete_admin($item){
-		$this->session();
-		$this->db->where_in('username', $item);
-		$this->db->delete('admin');
-	}
+	// function delete_admin($item){
+	// 	$this->session();
+	// 	$this->db->where_in('username', $item);
+	// 	$this->db->delete('admin');
+	// }
 
 	function dataHistory() {
 		$this->session();
@@ -187,12 +176,12 @@ class Admin extends CI_Controller {
 
 	function updateOrder() {
 		$this->session();
-		$status = $this->input->post('status');		
-		$id = $this->input->post('id');
+		$status = $this->input->post('status', TRUE);		
+		$id = $this->input->post('id', TRUE);
 		$data = $this->Admin_model->getItem($id);
 		
 		$update = array(
-			'status' => $this->input->post('status')
+			'status' => $this->input->post('status', TRUE)
 		);
 		
 		$this->Admin_model->Update($update, $id);
