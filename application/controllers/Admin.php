@@ -26,8 +26,8 @@ class Admin extends CI_Controller {
 		else
 		{
 
-		$username = $this->input->html_escape(post('username', TRUE));
-		$pass = $this->input->html_escape(post('pass', TRUE));
+		$username = html_escape($this->input->post('username', TRUE));
+		$pass = html_escape($this->input->post('pass', TRUE));
 		$isLogin = $this->Admin_model->login_authenAdmin($username, $pass);
 		$read = $this->Admin_model->getDataAdmin($username);
 
@@ -192,7 +192,7 @@ class Admin extends CI_Controller {
 	function userupdate() {
 		$this->session();
 		$authentication = html_escape($this->input->post('authentication'));		
-		$email = html_escape($this->input->post('email');
+		$email = html_escape($this->input->post('email'));
 		$data = $this->Admin_model->getUser($email);
 		
 		$update = array(
