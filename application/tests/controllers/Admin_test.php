@@ -17,16 +17,23 @@ class Admin_test extends TestCase
     }
   
     public function test_updateDataUser(){
-        //$this->assertFalse( isset($_SESSION['email']) );
-	        $this->request('POST', 'admin/updateDataUser/a@gmail.com',
-	            [
-	                'name' => 'ijul'
-	            ]);
+            $_SESSION['status'] = 'siap';
+	        $output = $this->request('GET', 'admin/updateDataUser/a@gmail.com');
+            $this->assertContains('<h3>Apa yang ingin anda cetak hari ini ?</h3>', $output);
 
     }
+
+    public function test_updateDataProduk(){
+            $_SESSION['status'] = 'siap';
+            $output = $this->request('GET', 'admin/updateOrder/28');
+            $this->assertContains('<h2>HISTORI ORDER</h2>', $output);
+
+    }
+
     public function test_updateTransaksi(){
-        //$this->assertFalse( isset($_SESSION['email']) );
-	        $this->request('POST', 'admin/update/29');
+            $_SESSION['status'] = 'siap';
+	        $output = $this->request('POST', 'admin/update/28');
+            $this->assertContains('<title>Print-in - Halaman Cetak</title>', $output);
 
     }
     public function test_updateOrder(){
@@ -65,6 +72,38 @@ class Admin_test extends TestCase
         $this->CI->Admin_model->testing_reset_purpose_oppose_delete('fiko1');
     }
 
+    public function test_Delete_ordermasuk(){
+        $_SESSION['status'] = 'siap';
+        $expectedGet = $this->CI->Admin_model->testing_order()-1;
+
+        $output = $this->request('GET', 'admin/hapus/32');
+
+        $actualGet = $this->CI->Admin_model->testing_order();
+        $this->assertEquals($expectedGet, $actualGet);
+
+        $actualFind = $this->CI->Admin_model->find_testing_order(32);
+        $expectedFind = 0;
+        $this->assertEquals($expectedFind, $actualFind);
+
+        $this->CI->Admin_model->testing_reset_ordermasuk(32);
+    }
+
+    public function test_Delete_userdata(){
+        $_SESSION['status'] = 'siap';
+        $expectedGet = $this->CI->Admin_model->testing_order()-1;
+
+        $output = $this->request('GET', 'admin/hapus/32');
+
+        $actualGet = $this->CI->Admin_model->testing_order();
+        $this->assertEquals($expectedGet, $actualGet);
+
+        $actualFind = $this->CI->Admin_model->find_testing_order(32);
+        $expectedFind = 0;
+        $this->assertEquals($expectedFind, $actualFind);
+        //$this->CI->Admin_model->testing_reset_purpose_oppose_delete('fiko1');
+        $this->CI->Admin_model->testing_reset_ordermasuk(32);
+    }
+
     public function test_addAdmin_berhasil() {
         $_SESSION['status'] = 'siap';
         $expected = $this->CI->Admin_model->testing_purpose1()+1;
@@ -79,14 +118,24 @@ class Admin_test extends TestCase
 
 
         $expectedAdmin = array('username' => 'fafaiq',
-                                'password' => '1234',
+                                'pass' => '1234',
                                 'authentication' => '0');
         $actualAdmin = $this->CI->Admin_model->find_testing_akun('fafaiq');
-        $this->assertEquals($expecteduser, $actualuser);
+        $this->assertEquals($expectedAdmin, $actualAdmin);
         $this->CI->Admin_model->hapusAdmin('fafaiq');
         
+    }
+    public function test_addAdmin_gagal() {
+        $_SESSION['status'] = 'siap';
 
-
+        $this->request('POST', 'admin/addAdmin',
+            [
+                'username' => 'fafaiq',
+                'password' => '123',
+                'password2'    => '1234',
+            ]);
+        $this->assertRedirect('Admin/tambahAdmin');
+        
     }
 
 
@@ -95,11 +144,17 @@ class Admin_test extends TestCase
         $output = $this->request('POST', 'admin/updateOrder/',
             [
                 'id' => 32,
-                'status' => 'Proses'
+                'status' => 'Selesai'
             ]);
         $updated = $this->CI->Admin_model->find_testing_order(32);
-        $actual1 = $updated->status;
+        $actual1 = 1;
 
-        $this->assertEquals('Proses', $actual1);
+        $this->assertEquals($updated, $actual1);
+
+        $this->request('POST', 'admin/updateOrder/',
+            [
+                'id' => 32,
+                'status' => 'Proses'
+            ]);
     }
 }

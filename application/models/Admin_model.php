@@ -151,5 +151,25 @@ class Admin_model extends CI_Model {
         }
         else return false;
 	}
+	public function testing_reset_ordermasuk($id){
+		$data = [
+        'id' => 32,
+        'tgl_order' => '24 May 2017',
+        'email' => 'boy@gmail.com',
+        'ukuran_krts' => 'A4',
+        'warna' => 'Ya',
+        'jumlah_copy' => '1',
+        'tgl_ambil' => '2017-05-29',
+        'waktu' => '06.00',
+        'pesan' => 'Dijilid',
+        'file' => 'ICONIX_Process.docx',
+    ];
+        $hasil = $this->db->where('id',$id)
+        		 ->get('order_masuk');
+        if($hasil->num_rows==0){
+        	$this->db->insert('order_masuk', $data);
+        }
+        else return false;
+	}
 }
 ?>
