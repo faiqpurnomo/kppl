@@ -5,6 +5,7 @@ class User extends CI_Controller {
 		$this->load->model('User_Model');
 		$this->load->library('upload');
 		$this->load->library('session');
+		$this->load->helper('security');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		//$this->load->library('email');
@@ -28,8 +29,8 @@ class User extends CI_Controller {
 		}
 		else
 		{
-		$email = $this->input->post('email', TRUE);
-		$password = $this->input->post('pass', TRUE);
+		$email = html_escape($this->input->post('email', TRUE));
+		$password = html_escape($this->input->post('pass', TRUE));
 		$isLogin = $this->User_Model->login_authen($email, $password);
 		$read = $this->User_Model->getData($email);
 		//$nama = $read['nama'];
@@ -61,7 +62,7 @@ class User extends CI_Controller {
 			redirect('Display/register');
 		}
 		else{
-		$pass = $this->input->post('password', TRUE);
+		$pass = html_escape($this->input->post('password', TRUE));
 		$pass2 = $this->input->post('password2', TRUE);
 
 		if ($pass != $pass2) {
@@ -70,10 +71,10 @@ class User extends CI_Controller {
 		} else {
 
 		$data = array(
-			'nama' => $this->input->post('nama', TRUE),
-			'nohandphone' => $this->input->post('nohandphone', TRUE),
-			'email' => $this->input->post('email', TRUE),
-			'password' => $this->input->post('password', TRUE)
+			'nama' => html_escape($this->input->post('nama', TRUE)),
+			'nohandphone' => html_escape($this->input->post('nohandphone', TRUE)),
+			'email' => html_escape($this->input->post('email', TRUE)),
+			'password' => html_escape($this->input->post('password', TRUE))
 		);
 		
 		$this->User_Model->addUserdata($data);

@@ -6,6 +6,7 @@ class Admin extends CI_Controller {
 		$this->load->library('session');
 		$this->load->helper('download');
 		$this->load->library('form_validation');
+		$this->load->helper('security');
 	}
 
 	function session() {
@@ -25,8 +26,8 @@ class Admin extends CI_Controller {
 		else
 		{
 
-		$username = $this->input->post('username', TRUE);
-		$pass = $this->input->post('pass', TRUE);
+		$username = $this->input->html_escape(post('username', TRUE));
+		$pass = $this->input->html_escape(post('pass', TRUE));
 		$isLogin = $this->Admin_model->login_authenAdmin($username, $pass);
 		$read = $this->Admin_model->getDataAdmin($username);
 
@@ -47,8 +48,8 @@ class Admin extends CI_Controller {
 
 	function addAdmin() {
 		$this->session();
-		$pass = $this->input->post('password', TRUE);
-		$pass2 = $this->input->post('password2', TRUE);
+		$pass = html_escape($this->input->post('password', TRUE));
+		$pass2 = html_escape($this->input->post('password2', TRUE));
 
 		if ($pass != $pass2) {
 			$data['err_message'] = "Password tidak cocok!";
@@ -56,8 +57,8 @@ class Admin extends CI_Controller {
 		} else {
 
 		$data = array(
-			'username' => $this->input->post('username', TRUE),
-			'pass' => $this->input->post('password', TRUE)
+			'username' => html_escape($this->input->post('username', TRUE)),
+			'pass' => html_escape($this->input->post('password', TRUE))
 		);
 		
 		$this->Admin_model->addAdmindata($data);
@@ -176,12 +177,12 @@ class Admin extends CI_Controller {
 
 	function updateOrder() {
 		$this->session();
-		$status = $this->input->post('status', TRUE);		
-		$id = $this->input->post('id', TRUE);
+		$status = html_escape($this->input->post('status', TRUE));		
+		$id = html_escape($this->input->post('id', TRUE));
 		$data = $this->Admin_model->getItem($id);
 		
 		$update = array(
-			'status' => $this->input->post('status', TRUE)
+			'status' => html_escape($this->input->post('status', TRUE))
 		);
 		
 		$this->Admin_model->Update($update, $id);
@@ -190,12 +191,12 @@ class Admin extends CI_Controller {
 
 	function userupdate() {
 		$this->session();
-		$authentication = $this->input->post('authentication');		
-		$email = $this->input->post('email');
+		$authentication = html_escape($this->input->post('authentication'));		
+		$email = html_escape($this->input->post('email');
 		$data = $this->Admin_model->getUser($email);
 		
 		$update = array(
-			'authentication' => $this->input->post('authentication')
+			'authentication' => html_escape($this->input->post('authentication'))
 		);
 		
 		$this->Admin_model->updateUser($update, $email);
