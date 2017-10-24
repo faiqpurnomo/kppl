@@ -10,6 +10,12 @@
 
 class User_test extends TestCase
 {
+    public function setUp()
+    {
+        $this->resetInstance();
+        $this->CI->load->Model('User_Model');
+    }
+
     public function test_login_berhasil(){
         //$this->assertFalse( isset($_SESSION['email']) );
         $this->request('POST', 'user/login',
@@ -80,6 +86,32 @@ class User_test extends TestCase
             ]);
         $this->assertRedirect('Display/register');
        
+    }
+    public function test_addUser_berhasil() {
+        $expected = $this->CI->User_Model->testing_purpose()+1;
+        $this->request('POST', 'user/register',
+            [
+                'email' => 'derolz@haha.com',
+                'password' => '1234',
+                'password2'    => '1234',
+                'nohandphone' => '082116009415',
+                'nama' => 'Derol waw',
+            ]);
+        $actual = $this->CI->User_Model->testing_purpose();
+
+        $this->assertEquals($expected, $actual);
+       //cek user
+        $expecteduser = array('nama' => 'Derol waw',
+                                'nohandphone' => '082116009415',
+                                'email' => 'derolz@haha.com',
+                                'password' => '1234',
+                                'authentication' => '0');
+        $actualuser = $this->CI->User_Model->find_testing_akun('derolz@haha.com');
+        $this->assertEquals($expecteduser, $actualuser);
+        $this->CI->User_Model->hapusUser('derolz@haha.com');
+        
+
+
     }
 
     public function test_addUser_gagal() {

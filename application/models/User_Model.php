@@ -54,6 +54,22 @@ class User_Model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+	public function testing_purpose(){
+			$test = $this->db->get('userdata');
+			return $test->num_rows();
+		}
+
+	public function find_testing_akun($email) {
+		$result = $this->db->where('email', $email)
+						   ->get('userdata');
+		return $result->row_array();
+	}
+
+	function hapusUser($email){
+		$this->db->where('email', $email);
+		$this->db->delete('userdata');
+	}
+
 	
 	/*function wrong_password($email, $value){
 		$this->db->set('authentication', $value);
