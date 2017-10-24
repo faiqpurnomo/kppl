@@ -93,7 +93,12 @@ function resizeText() {
                     <div class="col-md-6 text-left">
                         <h3>UPDATE ORDER</h3> 
                         <p><br></p>
+                        <?php $csrf = array(
+                                'name' => $this->security->get_csrf_token_name(),
+                                'hash' => $this->security->get_csrf_hash()
+                        );?>
                         <form role="form" method="post" action="<?php echo site_url('admin/updateOrder')?>" enctype="multipart/form-data">
+                        <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
                             <div class="form-group"> 
                                 <label class="control-label" for="formInput57">ID</label>
                                 <input type="text" class="form-control" id="id" placeholder="ID" required name="id" value="<?php echo $id?>" readonly>

@@ -87,7 +87,12 @@ function resizeText() {
                         <div class="page-header"> 
                             <h1>Daftar Baru</h1> 
                         </div>
-                        <form role="form" method="post" action="<?php echo site_url('admin/addAdmin')?>"> 
+                        <?php $csrf = array(
+                                'name' => $this->security->get_csrf_token_name(),
+                                'hash' => $this->security->get_csrf_hash()
+                        );?>
+                        <form role="form" method="post" action="<?php echo site_url('admin/addAdmin')?>">
+                        <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" /> 
                             <div class="form-group"> 
                                 <label class="control-label" for="exampleInputEmail1">Username</label>                                 
                                 <input type="text" name="username" class="form-control" id="nama" placeholder="Masukkan nama Anda" value> 
